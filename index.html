@@ -52,15 +52,15 @@
             cursor: pointer;
         }
         .grid-container { 
+            height: 80vh;
             display: grid;
             grid-template-columns: 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25%;
-            grid-template-rows: 10% 10% 10% 10% 10% 10% 10%; 
+            grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10%; 
             justify-self: center;
             justify-content: center;
             /*background-color: #2196f3;*/
             grid-gap: 10px;
             padding: 10px;
-            height: 80%;
         }
         .configuration {
             overflow-y: scroll;
@@ -70,13 +70,13 @@
             background-color: #f1f1f1;
             text-align: center;    
         }
-        .code-example { /* OR code-cont displayed in grid instead */
+        .code-example { 
             grid-column: 1 / 17;
-            grid-row: 1 / 8;
+            grid-row: 1 / 9;
         }
         .code-cont {
             grid-column: 1 / 17;
-            grid-row: 1 / 8; 
+            grid-row: 1 / 9; 
         }
         .tab {
             justify-self:baseline;
@@ -536,6 +536,6 @@
         </div>
     </div>
     <footer>
-        <div class="freecodethatifoundonthesideoftheroadasonewouldfindabrick">made by grant fisher <a href="https://github.com/grantefisher">github</a></div>
+            <div class="freecodethatifoundonthesideoftheroadasonewouldfindabrick">made by grant fisher <a href="https://github.com/grantefisher">github</a></div>
     </footer>
 </html>
