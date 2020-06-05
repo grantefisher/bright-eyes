@@ -527,7 +527,7 @@ function downloadTheme(){
 }
 
 function modalTheme(){
-    //downloadTheme();
+    downloadTheme();
     document.getElementById("copypasta").style.display = "inline";
 }
 
