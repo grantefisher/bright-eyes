@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        .mistermister {
+            font-family: monospace;
+            padding-bottom: .75%;
+            padding-left: 1%;
+        }
+        .header {
+            font-family: monospace;
+            padding-top: 1%;
+            padding-bottom: .1%;
+            padding-left: 1%;
+        }
+        #python {
+            display: block;
+        }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 10%;
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            margin: auto;
+            align-self: center;
+            text-align: center;
+            background-color: #fefefe;
+            padding: 35;
+            border: 1px solid #888;
+            width: 40%;            
+        }
+        .close {
+            color: #ffffff;
+            position: relative;
+            left: 21.5%;
+            font-size: 50px;
+            font-weight: bold;
+        }
+        .close:hover, 
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .grid-container { 
+            display: grid;
+            grid-template-columns: 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25% 4.25%;
+            grid-template-rows: 10% 10% 10% 10% 10% 10% 10%; 
+            justify-self: center;
+            justify-content: center;
+            /*background-color: #2196f3;*/
+            grid-gap: 10px;
+            padding: 10px;
+            height: 80%;
+        }
+        .configuration {
+            overflow-y: scroll;
+            grid-column: 17 / 22;
+            grid-row: 1 / 9;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            text-align: center;    
+        }
+        .code-example { /* OR code-cont displayed in grid instead */
+            grid-column: 1 / 17;
+            grid-row: 1 / 8;
+        }
+        .code-cont {
+            grid-column: 1 / 17;
+            grid-row: 1 / 8; 
+        }
+        .tab {
+            justify-self:baseline;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            grid-column: 1 span 10;
+            grid-row: 1;
+        }
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+        .display {
+            display: none;
+            background: #4d4d4d;
+            white-space: pre-wrap;
+            color: #e2e2e2;
+            grid-column: 1 / 17;
+            grid-row: 2 / 9; 
+            overflow-y: scroll;
+        }
+        .freecodethatifoundonthesideoftheroadasonewouldfindabrick {
+            padding-left: 1%;
+            margin-top: .5%;
+            -moz-transform: scale(1, -1);
+            -webkit-transform: scale(1, -1);
+            -o-transform: scale(1, -1);
+            -ms-transform: scale(1, -1);
+            transform: scale(1, -1);
+        }
+        a, a:visited {
+            text-decoration: none;
+            color: black;
+        }
+        input, select {
+            margin-bottom: 2%;
+        }
+    </style>
+
+    <script src="index.js" type="text/javascript" ></script>
+
+    <head>
+        <div class="header">
+            <h1>bright eyes </h1>
+            <h3>make color themes for vscode without code</h4>
+        </div>
+    </head>
+
+    <div class="grid-container">
+        <!--SETTINGS/CONFIG-->
+        <div class="grid-element configuration">
+            <div class="config">    
+                <br>
+                <br>
+                <!--MODAL DISPLAY FOR COMPLETE THEME-->
+                    <button onclick="modalTheme()">Make Theme</button>
+                    <div id="copypasta" class="modal">
+                        <span class="close" onclick="modalThemeClose()">&times;</span>
+                        <div id="theme" class="modal-content">
+                            <div class="Instructions">
+                            <b>Setup Instructions</b>
+                            <br>
+                            To install your theme, go to your VSCode direcotry (C:/users/{username}/.vscode/extensions).
+                            In the extensions folder, create a folder called the name of your theme and paste the two
+                            files that were just downloaded into your newly-created folder. Restart VSCode and switch
+                            to your theme by pressing Ctrl-K + Ctrl-T
+                            </div>
+                        </div>        
+                    </div>
+                <!--END MODAL DISPLAY FOR COMPLETE THEME-->
+                
+                <br>
+                <br>
+
+                <!--SETTINGS/CONFIG-->
+                <div class="selectors">                  
+
+                    <label for="themeName">Theme Name: </label>
+                    <input type="text" id="themeName">
+
+                    <b><p>vs code</p></b>
+
+                    <label for="settype">Light or Dark: </label>
+                    <select type="type" id="settype" name="settype">
+                        <option value="dark">Dark</option>
+                        <option value="light">Light</option>
+                    </select>
+
+                    <br>
+
+                    <label for="setactivity">Activity: </label>
+                    <input type="color" id="setactivity" name="setactivity" value="" onchange="UpdateView('setactivity', 'activity')">
+
+                    <br>
+
+                    <label for="setsidebar">Sidebar: </label>
+                    <input type="color" id="setsidebar" name="setsidebar" value="" onchange="UpdateView('setsidebar', 'sidebar')">
+
+                    <b><p>general</p></b>
+
+                    <label for="setbackground">Background: </label>
+                    <input type="color" id="setbackground" name="setbackground" value="#4d4d4d" onchange="UpdateView('setbackground', 'background')">
+                    
+                    <br>
+
+                    <label for="settext">Text: </label>
+                    <input type="color" id="settext" name="settext" value="#e2e2e2" onchange="UpdateView('settext', 'text')">
+
+                    <br>
+                    
+                    <label for="setpunc">Punctuation: </label>
+                    <input type="color" id="setpunc" name="setpunc" value="#e2e2e2" onchange="UpdateView('setpunc', 'punc')">
+
+                    <br>
+
+                    <label for="setcomment">Comment: </label> 
+                    <input type="color" id="setcomment" name="setcomment" value="#fff000" onchange="UpdateView('setcomment', 'comment')">
+                    
+                    <br>
+
+                    <label for="setbool">Boolean: </label>
+                    <input type="color" id="setbool" name="setbool" value="#4d4d4d" onchange="UpdateView('setbool', 'bool')">
+
+                    <br>
+
+                    <label for="setoperators">Operators: </label>
+                    <input type="color" id="setoperators" name="setoperators" value="#4d4d4d" onchange="UpdateView('setoperators', 'operators')">
+
+                    <br>
+
+                    <label for="setnumbers">Numbers: </label>
+                    <input type="color" id="setnumbers" name="setnumbers" value="#4d4d4d" onchange="UpdateView('setnumbers', 'numbers')">
+
+                    <br>
+
+                    <label for="setstrings">Quoted Strings: </label>
+                    <input type="color" id="setstrings" name="setstrings" value="#4d4d4d" onchange="UpdateView('setstrings', 'strings')">
+
+                    <br>
+
+                    <label for="setimport">Import/Include: </label>
+                    <input type="color" id="setimport" name="setimport" value="#4d4d4d" onchange="UpdateView('setimport', 'import')">
+
+                    <br>
+
+                    <label for="setstorage">Storage/Types: </label>
+                    <input type="color" id="setstorage" name="setstorage" value="" onchange="UpdateView('setstorage', 'storage')">
+
+                    <br>
+
+                    <label for="setclass">Class Type: </label>
+                    <input type="color" id="setclass" name="setclass" value="#4d4d4d" onchange="UpdateView('setclass', 'classtype')">
+
+                    <br>
+
+                    <label for="setclassname">Class Name: </label>
+                    <input type="color" id="setclassname" name="setclassname" value="#4d4d4d" onchange="UpdateView('setclassname', 'classname')">
+
+                    <br>
+
+                    <label for="setfunctype">Function Type: </label>
+                    <input type="color" id="setfunctype" name="setfunctype" value="#4d4d4d" onchange="UpdateView('setfunctype', 'functype')">
+
+                    <br>
+
+                    <label for="setfuncdef">Function Name: </label>
+                    <input type="color" id="setfuncdef" name="setfuncdef" value="#4d4d4d" onchange="UpdateView('setfuncdef', 'funcname')">
+                    
+                    <br>
+
+                    <label for="setargs">Function Args: </label>
+                    <input type="color" id="setargs" name="setargs" value="#4d4d4d" onchange="UpdateView('setargs', 'args')">
+                    
+                    <br>
+                    
+                    <label for="setselfref">Self-Reference: </label>
+                    <input type="color" id="setselfref" name="setselfref" value="#4d4d4d" onchange="UpdateView('setselfref', 'selfref')">
+
+                    <br>
+
+                    <label for="setreturn">Return: </label>
+                    <input type="color" id="setreturn" name="setreturn" value="#4d4d4d" onchange="UpdateView('setreturn', 'return')">
+
+                    <br>
+
+                    <b><p>c++</p></b>
+
+                    <label for="setstructdef">Struct Type: </label>
+                    <input type="color" id="setstructdef" name="setstructdef" value="#4d4d4d" onchange="UpdateView('setstructdef', 'structdef')">
+
+                    <br>
+
+                    <label for="setnamespace">Namespace: </label>
+                    <input type="color" id="setnamespace" value="#4d4d4d" onchange="UpdateView('setnamespace', 'namespace')">
+
+                    <br>
+
+                    <label for="setusing">Using and Keywords: </label>
+                    <input type="color" id="setusing" value="#4d4d4d" onchange="UpdateView('setusing', 'using')">
+
+                    <br>
+
+                    <label for="setnew">New: </label>
+                    <input type="color" id="setnew" value="#4d4d4d" onchange="UpdateView('setnew', 'new')">
+
+                    <br>
+
+                    <label for="setsizeof">Sizeof: </label>
+                    <input type="color" id="setsizeof" value="#4d4d4d" onchange="UpdateView('setsizeof', 'sizeof')">
+                    
+                    <b><p>html</p></b>
+
+                    <label for="setdoctype">DOCTYPE: </label>                    
+                    <input type="color" id="setdoctype" value="#4d4d4d" onchange="UpdateView('setdoctype', 'doctype')">
+
+                    <br>
+
+                    <label for="settags">Undefined and Others: </label>
+                    <input type="color" id="settags" value="#4d4d4d" onchange="UpdateView('settags', 'tags')">
+
+                    <br>
+
+                    <label for="sethtmltag">Html Tag:</label>
+                    <input type="color" id="sethtmltag" value="#4d4d4d" onchange="UpdateView('sethtmltag', 'htmltag')">
+
+                    <br>
+
+                    <label for="setheader">Head/Header Tag: </label>
+                    <input type="color" id="setheader" value="#4d4d4d" onchange="UpdateView('setheader', 'htmlheader')">
+
+                    <br>
+
+                    <label for="sethtmlbody">Body Tag: </label>
+                    <input type="color" id="sethtmlbody" value="#4d4d4d" onchange="UpdateView('sethtmlbody', 'htmlbody')">
+
+                    <br>
+
+                    <label for="sethtmlfooter">Footer Tag: </label>
+                    <input type="color" id="sethtmlfooter" value="#4d4d4d" onchange="UpdateView('sethtmlfooter', 'htmlfooter')">
+
+                    <br>
+
+                    <label for="setptags">P Tags: </label>
+                    <input type="color" id="setptags" value="#4d4d4d" onchange="UpdateView('setptags', 'ptags')">
+
+                    <br>
+
+                    <label for="sethtags">H1-6 Tags: </label>
+                    <input type="color" id="sethtags" value="#4d4d4d" onchange="UpdateView('sethtags', 'htags')">
+
+                    <br>
+
+                    <label for="setattrs">Attributes: </label>
+                    <input type="color" id="setattrs" value="#4d4d4d" onchange="UpdateView('setattrs', 'attrs')">
+
+                    <br>
+
+                    <label for="setquotes">Quotes: </label>
+                    <input type="color" id="setquotes" value="#4d4d4d" onchange="UpdateView('setquotes', 'htmlquote')">
+
+                    <br>
+
+                    <label for="setimage">Image: </label>
+                    <input type="color" id="setimage" value="#4d4d4d" onchange="UpdateView('setimage', 'image')">
+
+                    <br>
+
+                    <label for="seta">A Tag: </label>
+                    <input type="color" id="seta" value="#4d4d4d" onchange="UpdateView('seta', 'atag')">
+
+                    <br>
+
+                    <label for="setscript">Script Tag: </label>
+                    <input type="color" id="setscript" value="#4d4d4d" onchange="UpdateView('setscript', 'scripttag')">
+
+                    <br>
+
+                    <label for="setstyle">Style Tag: </label>
+                    <input type="color" id="setstyle" value="#4d4d4d" onchange="UpdateView('setstyle', 'styletag')">
+
+                    <b><p>css</p></b>
+
+                    <label for="setclasscss">Class: </label>
+                    <input type="color" id="setclasscss" value="#4d4d4d" onchange="UpdateView('setclasscss', 'cssclass')">
+
+                    <br>
+
+                    <label for="setnametag">Name: </label>
+                    <input type="color" id="setnametag" value="#4d4d4d" onchange="UpdateView('setnametag', 'nametag')">
+
+                    <br>
+
+                    <label for="setid">ID: </label>
+                    <input type="color" id="setid" value="#4d4d4d" onchange="UpdateView('setid', 'id')">
+
+                    <br>
+
+                    <label for="setproperty">Property: </label>
+                    <input type="color" id="setproperty" value="#4d4d4d" onchange="UpdateView('setproperty', 'cssproperty')">
+
+                    <br>
+
+                    <label for="setnonnum">Non-Number Property Values: </label>
+                    <input type="color" id="setnonnum" value="#4d4d4d" onchange="UpdateView('setnonnum', 'nonnum')">
+                </div>
+            </div>
+        </div>
+        <!-- EO-SETTINGS -->
+        <!-- TABBED LANG -->
+        <div class="grid-element code-example">
+            <div class="codecont">
+                <div class="tab">
+                    <button class="links" onclick="openLang(event, 'python')">Python</button>
+                    <button class="links" onclick="openLang(event, 'cpp')">C++</button>
+                    <button class="links" onclick="openLang(event, 'javascript')">JavaScript</button>
+                    <button class="links" onclick="openLang(event, 'htmltab')">HTML & CSS</button>
+                </div>
+            </div>
+        </div>
+        <div id="python" class="display">
+            <code class="ex-code">
+<!--PYTHON CODE-->
+    <span class="import">import</span> x <span class="return">from</span> y <span class="return">as</span> z
+
+    <span class="classtype">class</span> <span class="classname">MyClass</span><span class="punc">:</span>
+        i <span class="operators">=</span> <span class="numbers">123.45</span>
+        alive <span class="operators">=</span> <span class="bool">True</span>
+        <span class="functype">def</span> <span class="funcname">f</span><span class="punc">(</span><span class="selfref">self</span><span class="punc">):</span>
+            <span class="return">return</span> <span class="punc">'</span><span class="strings">hello world</span><span class="punc">'</span>
+    
+    <span class="functype">def</span> <span class="funcname">example</span><span class="punc">(</span><span class="args">a</span><span class="punc">,</span> <span class="args">b</span><span class="punc">):</span>
+        a <span class="operators">=</span> a <span class="operators">*</span> <span class="numbers">2</span>
+        b <span class="operators">=</span> a
+        <span class="return">if</span> a <span class="operators">&gt</span> <span class="numbers">100</span><span class="punc">:</span>
+            print<span class="punc">("</span><span class="strings">a is greater than 100</span><span class="punc">")</span>
+<!--EO PYTHON CODE-->
+            </code>
+        </div>
+        <div id="cpp" class="display">
+            <code class="ex-code">
+<!--CPP CODE-->                
+    <span class="punc">#</span><span class="import">include</span> &lt<span class="strings">iostream</span>&gt
+
+    <span class="using">using</span> <span class="namespace">namespace</span> std<span class="punc">;</span>
+
+    <span class="comment">//this is what your comments will look like</span>
+
+    <span class="classtype">class</span> Player <span class="punc">{</span>
+        public<span class="punc">:</span>
+            <span class="storage">int</span> init<span class="punc">(){</span>
+                <span class="return">return</span> <span class="numbers">0</span><span class="punc">;</span>
+            <span class="punc">}</span>
+            <span class="storage">void</span> method_one(<span class="storage">int</span> x, <span class="storage">int</span> y<span class="punc">){</span>
+                std::cout << <span class="punc">"</span><span class="strings">wow</span><span class="punc">";</span>
+            <span class="punc">}</span>
+    <span class="punc">};</span>
+
+    <span class="structdef">struct</span> Books <span class="punc">{</span>
+        <span class="storage">char</span> title<span class="punc">[</span><span class="numbers">50</span><span class="punc">];</span>
+        <span class="storage">char</span> author<span class="punc">[</span><span class="numbers">50</span><span class="punc">];</span>
+        <span class="storage">char</span> subject<span class="punc">[</span><span class="numbers">50</span><span class="punc">];</span>
+        <span class="storage">bool</span> available <span class="operators">=</span> <span class="bool">true</span><span class="punc">;</span>
+    <span class="punc">};</span>
+
+    <span class="storage">void</span> example<span class="punc">(</span><span class="storage">int</span> a, <span class="storage">int</span> b<span class="punc">){</span>
+        cout << a<span class="punc">;</span>
+        cout << b<span class="punc">;</span>
+    <span class="punc">}</span>
+
+    <span class="storage">int</span> main<span class="punc">(){</span>
+        <span class="storage">float</span> <span class="vars">x</span> <span class="operators">=</span> <span class="numbers">8</span><span class="punc">;</span>
+        <span class="storage">float</span> <span class="vars">y</span> <span class="operators">=</span> <span class="numbers">7</span><span class="punc">;</span>
+        <span class="storage">float</span> <span class="vars">z</span> <span class="operators">=</span> <span class="vars">x</span> <span class="operators">-</span> <span class="vars">y</span><span class="punc">;</span>
+        <span class="return">return</span> z<span class="punc">;</span>
+    <span class="punc">}</span>
+<!--EO CPP CODE-->                
+            </code>
+        </div>
+        <div id="javascript" class="display">
+            <code class="ex-code">
+<!--JS CODE-->
+    <span class="import">import</span> * <span class="import">as</span> name <span class="import">from</span> <span class="punc">"</span><span class="strings">name-module</span><span class="punc">";</span>
+    
+    <span class="comment">//this is an array</span>
+    <span class="storage">let</span> fruits  <span class="punc">['</span><span class="strings">apple</span><span class="punc">', '</span><span class="strings">banana</span><span class="punc">'];</span>
+
+    <span class="storage">var</span> x <span class="operators">=</span> <span class="numbers">10.0</span><span class="punc">;</span>
+    <span class="storage">var</span> y <span class="operators">=</span> <span class="numbers">10</span> <span class="operators">+</span> <span class="numbers">5</span><span class="punc">;</span>
+
+    <span class="return">if</span> <span class="punc">(</span>x <span class="operators">==</span> <span class="numbers">10</span> <span class="operators">&&</span> y <span class="operators">==</span> <span class="numbers">15</span><span class="punc">){</span>
+        y <span class="operators">=</span> <span class="numbers">0</span><span class="punc">;</span>
+    <span class="punc">}</span>
+    
+    <span class="return">else</span> <span class="punc">{</span>
+        <span class="return">return</span> <span class="numbers">0</span><span class="punc">;</span>
+    } 
+
+    <span class="classtype">class</span><span class="classname"> Rectangle </span><span class="punc">{</span>
+        <span class="storage">constructor</span><span class="punc">(</span><span class="args">height</span><span class="punc">,</span> <span class="args">width</span><span class="punc">) {</span>
+            <span class="selfref">this</span><span class="punc">.</span>height <span class="operators">=</span> height<span class="punc">;</span>
+            <span class="selfref">this</span><span class="punc">.</span>width <span class="operators">=</span> width<span class="punc">;</span>
+        }
+        <span class="functype">calcArea</span><span class="punc">() {</span>
+            <span class="return">return</span> <span class="selfref">this</span><span class="punc">.</span>height <span class="operators">*</span> <span class="selfref">this</span><span class="punc">.</span>width<span class="punc">;</span>
+        <span class="punc">}</span>
+    <span class="punc">}</span>
+
+    <span class="storage">const</span> p <span class="operators">=</span> <span class="new">new</span> <span class="classname">Rectangle</span><span class="punc">();</span>
+
+    <span class="funcname">p</span><span class="punc">.</span><span class="funcname">calcArea</span><span class="punc">();</span>
+
+    <span class="functype">function</span> <span class="funcname">exampleFunc</span><span class="punc">(</span><span class="args">p1</span><span class="punc">,</span> <span class="args">p2</span><span class="punc">) {</span>
+        <span class="return">return</span> p1 <span class="operators">*</span> p2<span class="punc">;</span>
+    <span class="punc">}</span>
+<!--EO JS CODE-->
+            </code>
+        </div>
+        <div id="htmltab" class="display">
+            <code class="ex-code">
+<!--HTML CODE-->
+    <span class="punc">&lt!</span><span class="doctype">DOCTYPE </span><span class="attrs">html</span><span class="punc">&gt</span>
+
+    <span class="punc">&lt</span><span class="htmltag">html</span><span class="punc">&gt</span>
+        <span class="punc">&lt</span><span class="htmlheader">head</span><span class="punc">&gt</span>
+            <span class="punc">&lt</span><span class="styletag">style</span><span class="punc">&gt</span>
+                <span class="punc">#</span><span class="id">body</span> <span class="punc">{</span>
+                    <span class="cssproperty">text-align</span><span class="punc">:</span> <span class="nonnum">center</span><span class="punc">;</span>
+                <span class="punc">}</span>
+                <span class="punc">.</span><span class="cssclass">example</span> <span class="punc">{</span>
+                    <span class="cssproperty">margin</span><span class="punc">:</span> <span class="nonnum">auto</span><span class="punc">;</span>
+                    <span class="cssproperty">padding-right</span><span class="punc">:</span> <span class="numbers">0.1</span><span class="punc">;</span>
+                <span class="punc">}</span>
+            <span class="punc">&lt/</span><span class="styletag">style</span><span class="punc">&gt</span>
+            <span class="punc">&lt</span><span class="scripttag">script</span><span class="punc">&gt</span><span class="punc">&lt/</span><span class="scripttag">script</span><span class="punc">&gt</span>
+        <span class="punc">&lt/</span><span class="htmlheader">head</span><span class="punc">&gt</span>
+
+        <span class="punc">&lt</span><span class="htmlbody">body</span><span class="punc">&gt</span>
+            <span class="punc">&lt</span><span class="htags">h2</span><span class="punc">&gt</span>Bright Eyes: <span class="punc">&lt/</span><span class="htags">h2</span><span class="punc">&gt</span>
+            <span class="punc">&lt</span><span class="atag">a</span> <span class="attrs">href</span><span class="punc">=&quot;</span><span class="htmlquote">https://www.ohmyicantfindmyshoesorhat.com</span><span class="punc">&quot;&gt</span><span class="punc">&lt</span><span class="ptags">p</span><span class="punc">&gt</span>trust the schema<span class="punc">&lt/</span><span class="ptags">p</span><span class="punc">&gt&lt/</span><span class="atag">a</span><span class="punc">&gt</span>
+            <span class="punc">&lt</span><span class="image">img</span> <span class="attrs">src</span><span class="punc">=&quot;</span><span class="htmlquote">thebigone.png</span><span class="punc">&quot;&gt</span>
+            <span class="punc">&lt</span><span class="tags">undefined</span><span class="punc">&gt</span>CAN YOU HEAR ME? PLEASE HELP!<span class="punc">&lt/</span><span class="tags">undefined</span><span class="punc">&gt</span>
+        <span class="punc">&lt/</span><span class="htmlbody">body</span><span class="punc">&gt</span>
+
+        <span class="punc">&lt</span><span class="htmlfooter">footer</span><span class="punc">&gt</span>
+            <span class="punc">&lt</span><span class="ptags">p</span><span class="punc">&gt</span>down here is the footer<span class="punc">&lt/</span><span class="ptags">p</span><span class="punc">&gt</span>
+        <span class="punc">&lt/</span><span class="htmlfooter">footer</span><span class="punc">&gt</span>
+    <span class="punc">&lt/</span><span class="htmltag">html</span><span class="punc">&gt</span>
+<!--EO HTML CODE-->
+            </code>
+        </div>
+    </div>
+    <footer>
+        <div class="freecodethatifoundonthesideoftheroadasonewouldfindabrick">made by grant fisher <a href="https://github.com/grantefisher">github</a></div>
+    </footer>
+</html>
