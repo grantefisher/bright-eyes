@@ -1,7 +1,7 @@
 # bright-eyes
 make custom color themes for vscode  with the bright eyes tool
 
-In addition to being the name of the greatest band, bright eyes is the name of a project i'm 
+in addition to being the name of the greatest band, bright eyes is the name of a project i'm 
 developing to solve the problem of developing themes for text editors, starting first with a
 few top languages for vscode.
 
