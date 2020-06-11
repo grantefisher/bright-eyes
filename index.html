@@ -7,10 +7,11 @@
             padding-left: 1%;
         }
         .header {
+            grid-column: 1;
             font-family: monospace;
             padding-top: 1%;
             padding-bottom: .1%;
-            padding-left: 1%;
+            padding-left: 5%;
         }
         #python {
             display: block;
@@ -34,7 +35,7 @@
             align-self: center;
             text-align: center;
             background-color: #fefefe;
-            padding: 35;
+            padding: 2%;
             border: 1px solid #888;
             width: 40%;            
         }
@@ -106,7 +107,7 @@
             overflow-y: scroll;
         }
         .freecodethatifoundonthesideoftheroadasonewouldfindabrick {
-            padding-left: 1%;
+            padding-left: 2.9%;
             margin-top: .5%;
             -moz-transform: scale(1, -1);
             -webkit-transform: scale(1, -1);
@@ -121,14 +122,67 @@
         input, select {
             margin-bottom: 2%;
         }
+        .headcontainer {
+            display: grid;
+            padding-left: 1.5%;
+            padding-right: 4.25%;
+            grid-template-columns: 25% 58% 17%;
+            grid-template-rows: 100%;
+        }
+        .helpbutton {
+            padding-top: 1%;
+            padding-bottom: .1%;
+            grid-column: 3;
+            text-align:center;
+            vertical-align: middle;
+            align-self: center;
+        }
+        .closehelp {
+            color: #ffffff;
+            position: relative;
+            left: 70%;
+            font-size: 50px;
+            font-weight: bold;
+        }
+        .closehelp:hover, 
+        .closehelp:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        code {
+            font-size: larger;
+
+        }
     </style>
 
     <script src="index.js" type="text/javascript" ></script>
 
     <head>
-        <div class="header">
-            <h1>bright eyes </h1>
-            <h3>make color themes for vscode without code</h4>
+        <title>bright eyes</title>
+        <div class="headcontainer">
+            <div class="header">
+                <h1>bright eyes </h1>
+                <h3>make color themes for vscode without code</h4>
+            </div>
+            <div class="helpbutton">
+                <button onclick="modalHelp()" style="font-size:x-large;background-color: #555555; color: rgb(255, 255, 255)">how do i use this?</button>
+            </div>
+            <div id="helpinfo" class="modal">
+                <span class="closehelp" onclick="modalClose()">&times;</span>
+                <div id="theme" class="modal-content">
+                    <div class="Instructions">
+                    <b>welcome to bright eyes</b>
+                    <br>
+                    <br>
+                    <p style="font-size:larger">
+                        use bright eyes to make new themes for VSCode. select what colors you want on the right side,
+                        and look on the left side to see your changes in real time. shen you're satisfied, just hit
+                        the 'make theme' button on the right side and your theme will download.
+                    </p>
+                    </div>
+                </div>        
+            </div>
         </div>
     </head>
 
@@ -146,10 +200,12 @@
                             <div class="Instructions">
                             <b>Setup Instructions</b>
                             <br>
-                            To install your theme, go to your VSCode direcotry (C:/users/{username}/.vscode/extensions).
-                            In the extensions folder, create a folder called the name of your theme and paste the two
-                            files that were just downloaded into your newly-created folder. Restart VSCode and switch
-                            to your theme by pressing Ctrl-K + Ctrl-T
+                            <p style="font-size:larger">
+                                To install your theme, go to your VSCode direcotry (C:/users/{username}/.vscode/extensions).
+                                In the extensions folder, create a folder called the name of your theme and paste the two
+                                files that were just downloaded into your newly-created folder. Restart VSCode and switch
+                                to your theme by pressing Ctrl-K + Ctrl-T.
+                            </p>
                             </div>
                         </div>        
                     </div>
@@ -162,7 +218,7 @@
                 <div class="selectors">                  
 
                     <label for="themeName">Theme Name: </label>
-                    <input type="text" id="themeName">
+                    <input type="text" id="themeName" value="babys first theme">
 
                     <b><p>vs code</p></b>
 

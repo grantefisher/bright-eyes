@@ -23,7 +23,6 @@ function downloadFile(content, filename){
 
 
 
-
 function UpdateView(id, destination){
     if (destination == "background"){
         var elems = document.getElementsByClassName("display");
@@ -524,6 +523,14 @@ function maketheme(){
 function downloadTheme(){
     makePackage();
     maketheme();
+}
+
+function modalHelp(){
+    document.getElementById("helpinfo").style.display = "inline";
+}
+
+function modalClose(){
+    document.getElementById("helpinfo").style.display = "none";
 }
 
 function modalTheme(){
