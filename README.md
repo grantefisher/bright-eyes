@@ -1,4 +1,4 @@
-# bright-eyes
+# bright-eyes (DEPRECATED)
 make custom color themes for vscode  with the bright eyes tool
 
 in addition to being the name of the greatest band, bright eyes is the name of a project i'm 
